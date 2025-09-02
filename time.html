@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real Time Nigeria Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background-color: #f0f8ff;
+        }
+        #clock {
+            font-size: 48px;
+            color: #333;
+        }
+        #greeting {
+            font-size: 32px;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="clock">00:00:00</div>
+    <div id="greeting">Good morning sir!</div>
+
+    <script>
+        function updateClock() {
+            // Get current time in Nigeria timezone
+            const options = { timeZone: 'Africa/Lagos', hour12: false };
+            const now = new Date().toLocaleString('en-US', options);
+            const [date, time] = now.split(", ");
+            
+            document.getElementById('clock').textContent = time;
+
+            // Split time to get hour for greeting
+            const hour = parseInt(time.split(":")[0]);
+
+            let greetingText;
+            if (hour < 12) {
+                greetingText = "Good morning sir!";
+            } else if (hour < 18) {
+                greetingText = "Good afternoon sir!";
+            } else {
+                greetingText = "Good evening sir!";
+            }
+            document.getElementById('greeting').textContent = greetingText;
+        }
+
+        setInterval(updateClock, 1000); // Update every second
+        updateClock(); // Initial call
+    </script>
+
+</body>
+</html>
+
